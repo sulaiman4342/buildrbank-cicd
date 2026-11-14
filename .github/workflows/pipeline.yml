@@ -110,7 +110,7 @@ jobs:
         with:
           username: ${{ env.DOCKERHUB_USER }}
           # TODO 1 - the name of the secret holding your Docker Hub token.
-          password: ${{ secrets.TODO_PUT_THE_SECRET_NAME_HERE }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build it and push it
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc  # v7.4.0
@@ -166,10 +166,10 @@ jobs:
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2  # v1.2.5
         with:
           # TODO 3 - the secret holding your server's public IP.
-          host: ${{ secrets.TODO_PUT_THE_SECRET_NAME_HERE }}
+          host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           # TODO 4 - the secret holding your .pem private key.
-          key: ${{ secrets.TODO_PUT_THE_SECRET_NAME_HERE }}
+          key: ${{ secrets.EC2_HOST_SSH_KEY }}
           script: |
             set -e
             docker pull ${{ env.DOCKERHUB_USER }}/${{ env.IMAGE }}:dev

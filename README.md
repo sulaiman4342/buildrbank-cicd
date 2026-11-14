@@ -44,6 +44,27 @@ twenty minutes — then come back here.
 
 ---
 
+## Deploying the app on Vercel
+
+This repository's browser page is served by the FastAPI app in `app/api.py`.
+The Vercel entrypoint is configured in `pyproject.toml`; without it, Vercel
+can publish the page as static content while `/health`, `/sops`, and `/chat`
+return `404`.
+
+1. Import this repository into Vercel and set **Root Directory** to the
+   repository root.
+2. In **Settings → Environment Variables**, add `OPENROUTER_API_KEY`,
+   `SUPABASE_URL`, and `SUPABASE_KEY`. Add optional Langfuse and Tavily
+   variables if you use them. Never commit `.env`.
+3. Redeploy after adding the configuration and environment variables.
+4. Verify `/health` and `/sops` return JSON before testing the chat page.
+
+The agent currently stores checkpoints in a local SQLite file. Vercel's
+function filesystem is not durable, so use a persistent checkpoint database
+before relying on conversation history in production.
+
+---
+
 ## 1 · Fork it
 
 Actions only runs in a repo you own. **Fork**, top right of this page.

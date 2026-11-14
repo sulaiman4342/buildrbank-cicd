@@ -18,6 +18,20 @@
 --   25 handbook chunks · 6 procedures
 -- =====================================================================
 
+-- customers (3 rows)
+-- The same customer records are also in seed-1-bank.sql. Keeping these
+-- inserts here lets this seed file populate every table checked by check.py.
+-- They are safe to run after seed-1-bank.sql because conflicts are ignored.
+insert into customers (customer_id, full_name, email, phone, segment, risk_profile, kyc_status, active)
+values ('CUST-001', 'Isuru Alagiyawanna', 'isuru@example.com', '+94 77 123 4567', 'vip', 'moderate', 'verified', true)
+on conflict (customer_id) do nothing;
+insert into customers (customer_id, full_name, email, phone, segment, risk_profile, kyc_status, active)
+values ('CUST-002', 'Nehara Silva', 'nehara@example.com', '+94 71 987 6543', 'retail', 'conservative', 'verified', true)
+on conflict (customer_id) do nothing;
+insert into customers (customer_id, full_name, email, phone, segment, risk_profile, kyc_status, active)
+values ('CUST-004', 'Yasiru Perera', 'yasiru@example.com', '+94 76 555 1211', 'retail', 'moderate', 'verified', true)
+on conflict (customer_id) do nothing;
+
 delete from kb_chunks where source = 'bank_handbook.txt';
 -- kb_chunks  (25 rows)
 insert into kb_chunks (source, chunk_index, content, embedding) values ('bank_handbook.txt', 0, 'BUILDRBANK CUSTOMER HANDBOOK
